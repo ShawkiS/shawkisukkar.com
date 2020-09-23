@@ -6,8 +6,12 @@
       <meta name="author" content="Shawki Sukkar" />
         <title>12 Things you Should Know About Machine Learning | Shawki Sukkar</title>
       <link rel="stylesheet" href="../styles/page.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Arvo:400,700">
   <script>hljs.initHighlightingOnLoad();</script>
+<style>
+  
+*{background-color: #edf2f7;}
+</style>
 </head>
 <body>
     <nav>
@@ -25,7 +29,7 @@
 <h1>12 Things you Should Know About Machine Learning</h1>
 <p>I’ll go through 12 things that are essential to know about Machine Learning if you want to develop a successful ML project!</p>
 <div>
-<h2>1. Learning = Representation + Evaluation + Optimization:</h2>
+<h2><strong>1. Learning = Representation + Evaluation + Optimization:</strong></h2>
 <table>
   <tr >
     <th style="padding-right: 20px;">Representation</th>
@@ -84,13 +88,13 @@
 </table>
 
 <p>If we try to break a machine-learning algorithm to try to understand what’re the main parts in it, we will find they’re Representation, Evaluation, and Optimization, let’s know what exactly they’re: </p>
-<h4><b>Representation:</b></h4>
+<h4><strong>Representation:</strong></h4>
 <p>The first part of a machine learning algorithm is the representation which it’s choosing the needed classifier that can best learn from the data because for example classification often requires input that is mathematically and computationally convenient to process and representation can be either supervised or unsupervised.</p>
 
-<h4><b>Evaluation:</b></h4>
+<h4><strong>Evaluation:</strong></h4>
 <p>Evaluation is the step that comes after building your model and it’s the way to know the good models from the bad ones and it’s maximizing or minimizing some numerical values for optimization which is the next phase.</p>
 
-<h4><b>Optimization:</b></h4>
+<h4><strong>Optimization:</strong></h4>
 <P>So now you have some represented models and the job of this phase is to go through the models to find the best evaluations.</P>
 
 </div>
@@ -98,50 +102,50 @@
 
 <div>
 
-<h2>2. It's Generalization that Counts:</h2>
+<h2><strong>2. It's Generalization that Counts:</strong></h2>
 <p>The main idea in Machine Learning is a generalization and being able to know the answers without memorizing the data or some conditions, we don’t just want it to learn to model the training data. We want it to generalize to data it hasn’t seen before and be able to follow a distribution that has not been seen before.</p>
 </div>
 
 <div>
-<h2>3. Data Alone is Not Enough:</h2>
+<h2><strong>3. Data Alone is Not Enough:</strong></h2>
 <p>David Hume (1711–1776) the Scottish enlightenment philosopher says "The supposition that the future resembles the past, is not founded on arguments of any kind, but is derived entirely from habit.", there is a problem called, the problem of induction which question of whether inductive reasoning leads to knowledge understood in the classic philosophical sense. For example, inductive reasoning, makes a series of observations and infers a new claim based on them but First of all, it is not certain, regardless of the number of observations you have, second, the observations themselves do not establish the validity of inductive reasoning! This was from 200 years ago but until today we have the same problem in machine learning every learning should have some knowledge or assumption behind it and there is a theorem by David Wolpert, called the No free lunch theorem which states that there is no one model that works best for every problem! </p>
 <p>So if we want to understand why machine learning has been successful it’s because it works with general assumptions that it turns a small amount of input knowledge into a large amount of output knowledge. requiring much less input knowledge to produce useful results, the more we put in, the more we can get out.</p>
 </div>
 
 <div>
-<h2>4. Overfitting Has Many Faces:</h2>
+<h2><strong>4. Overfitting Has Many Faces:</strong></h2>
 <p>There are two main parts of overfitting, that are <b>variance</b> and <b>overfitting</b>! Let's start with variance which is a tool to better understand the distribution of a data set so you can try to think about it as a tool to measure the spread of data and see if your data is sensitive to small changes! In statistics, overfitting is "the production of an analysis that corresponds too closely or exactly to a particular set of data, and may therefore fail to fit additional data or predict future observations reliably" and it’s the same in machine learning that for example, you’re recognizing your training data as a concept! so to avoid this there are four simple tips that I can share in the article, 1) set the training data aside from the beginning 2) train several ML models on subsets of the available input data and evaluate them on the complementary subset of the data, 3) Use early stopping, early stopping enables you to monitor the performance of your model for every epoch on a held-out validation set during the training, and terminate the training conditional on the validation performance, 4) don’t train the model so well on the training data!</p>
 </div>
 
 <div>
-<h2>5. Intuition Fails in High Dimensions:</h2>
+<h2><strong>5. Intuition Fails in High Dimensions:</strong></h2>
 <P>If we are listing the problems in ML, the biggest problem after overfitting is the curse of dimensionality, Let’s say that you have a dimension of 100 and a very big training set of a trillion examples, so if you think about it that covers a fraction of about 10^18 of the input space, so basically generalization becomes exponentially harder as the number of features increases and you have to think about it in this way that if you’re having more features than observations this going to result in overfitting! So in other ways, the problem is that when the dimensionality increases, the volume of the space increases so fast that the available data becomes sparse. This sparsity is problematic for any method that requires statistical significance. To obtain a statistically sound and reliable result, the amount of data needed to support the result often grows exponentially with the dimensionality.</P>
 </div>
 
 <div>
-<h2>6. Theoretical Guarantees are not what they seem:</h2>
+<h2><strong>6. Theoretical Guarantees are not what they seem:</strong></h2>
 <p>The most common type is a bound-in machine learning is on the number of examples needed to ensure good generalization. So it says that if you have a large training dataset, that the algorithm would return a good hypothesis with high probability or would not find a consistent hypothesis. And another common theoretical guarantee says that if you had an infinite amount of data you’ll have a good ML algorithm but that’s not true because first of all, you’re not going to have an infinite amount of data, and second goes to 3 that data alone is not enough! The main role of theoretical machine learning guarantees is to drive algorithms design.</p>
 </div>
 
 <div>
-<h2>7. Feature Engineering Is The Key:</h2>
+<h2><strong>7. Feature Engineering Is The Key:</strong></h2>
 <p>Feature engineering, the dark art of machine learning but one of the most interesting steps, so if we ask why some ML projects succeed and others fail, mainly it will be because of the feature engineering because if you have very complex features it will not be able to learn, this what you’re going to spend the most time on and it’s the hardest because it’s domain-specific and needs creativity so you will be shocked that you won’t spend a lot of time on the machine learning! Another option and a cool thing are that you can write an algorithm that generates large numbers of candidate features and you select the best.</p>
 </div>
 
 <div>
-<h2>8. More Data Beats A Clever Algorithm:</h2>
+<h2><strong>8. More Data Beats A Clever Algorithm:</strong></h2>
 <p>Let’s suppose you had a great feature engineering and your results weren't accurate enough, in this case, what is the best thing to do? A better algorithm or more data! Getting more data will help more because a dumb algorithm with lots and lots of data beats a clever one with modest amounts of it because, in the end, most ML algorithms do nearly the same! A tip you may use is to start with the easier ones so for example use naive Bayes before logistic regression because the others are hard to set to get real results from!</p>
 <p>If you think about it we have the main types of learning, those whose representation has a fixed size, and those whose representation can grow with the data! Fixed-size learners can only take advantage of so much data, Variable-size learners can in principle learn any function given sufficient data, but the limitation of the algorithm design or computational cost may not get the needed results! So obviously having a very smart algorithm and you have the resources available it pays off so sometimes having a solid infrastructure pays off!</p>
 
 </div>
 
 <div>
-<h2>9. Learn Many Models, Not Just One:</h2>
+<h2><strong>9. Learn Many Models, Not Just One:</strong></h2>
 <p>A lot of efforts in an ML project that we see until now are trying different learners and choosing the one that has the best result but researchers thought about why we don’t combine many variations and the results were a lot better which is bagging! There is a competition that Netflix lead about building the best video recommender system (you can check it here) and teams found that they got the best results by combining their learners and it ended up with over over 100 learners! but this is different from the Bayesian model averaging which I can write about it later but it’s combined estimation and prediction that produces a straightforward model choice criteria and less risky predictions.  </p>
 </div>
 
 <div>
-<h2>10. Simplicity Does Not Imply Accuracy:</h2>
+<h2><strong>10. Simplicity Does Not Imply Accuracy:</strong></h2>
 <p>If you have two ML algorithms with the same training error, the simpler one will have the lowest test error. A very interesting paper called The Role of Occam’s Razor in Knowledge
 Discovery by Pedro Domingos said, “simpler hypotheses should be preferred because simplicity is a virtue in its own right, not because of a hypothetical connection with accuracy.”
 You can take it in this way too, a learner with a larger hypothesis space that tries fewer hypotheses from it is less likely to overfit than one that tries more hypotheses from a smaller space, and part of the complexity of a model is the size of the hypothesis space!</p>
@@ -149,12 +153,12 @@ You can take it in this way too, a learner with a larger hypothesis space that t
 
 <div>
 
-<h2>11. Representation Does Not Imply Learnable</h2>
+<h2><strong>11. Representation Does Not Imply Learnable:</strong></h2>
 <P>If a function can be presented doesn’t mean it can be learned and there are a lot of other obstacles that should be taken into consideration and the question should be “Can it be learned?” not “Can it be represented?”</P>
 </div>
 
 <div>
-<h2>12. Correlation Does Not Imply Causation</h2>
+<h2><strong>12. Correlation Does Not Imply Causation:</strong></h2>
 <p>"correlation does not imply causation" is a statistics phrase and it refers to the inability to legitimately deduce a cause-and-effect relationship between two variables solely based on an observed association or correlation between them. So if you observe something and you see a correlation it’s only a motivation to try to understand it more!</p>
 
 </div>
