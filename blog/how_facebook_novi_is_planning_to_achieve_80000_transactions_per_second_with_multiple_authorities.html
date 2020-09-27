@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+      <meta name="author" content="Shawki Sukkar" />
+        <title>How you Can Achieve 80,000 Transactions per Second with 20 Authorities? | Shawki Sukkar</title>
+      <link rel="stylesheet" href="../styles/page.css" />
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Arvo:400,700">
+  <script>hljs.initHighlightingOnLoad();</script>
+<style>
+  
+</style>
+</head>
+<body>
+    <nav>
+            <ul>
+                <li><a href="../index.html"><b>Home</b></a></li>
+                <li><a href="../blog.html"><b>Blog</b></a></li>
+                <li><a href="https://drive.google.com/file/d/1yiXQYMp1nJZuNw1ERWJNCWsqUwYyz9yV/view?usp=sharing"><b>Resume</b></a></li>
+                <li><a href="../newsletter.html"><b>Newsletter</b></a></li>
+                <li><a href="../resources.html"><b>Resources</b></a></li>
+            </ul>
+    </nav>
+
+    <main>
+        <div>
+<h1>How Facebook Novi is planning to Achieve 80,000 Transactions per Second with Multiple Authorities?</h1>
+<h2><b>Introduction:</b></h2>
+<p>I came across a great paper from the Facebook Novi team (previously Calibra) about maintaining a high-integrity and availability settlement system for pre-funded payments that allows distributed authorities, that may include Byzantine and it can be used to settle payments in a native unit of value (crypto-currency), or as a financial side-infrastructure to support retail payments in fiat currencies and if you think about it that you can achieve 80,000 transactions per second with 20 authorities that may contain Byzantine is really cool so I decided to write about it or you can call it simple summarization to bring attention to the paper so some people can hack cool projects with it!</p>
+<p>If you want to understand the value of the paper you have to understand the common approach to financial payments that’s called Real-time gross settlement (RTGS), so what’s RTGS? Basically, it’s an Electronic funds transfer that enables the transfer of money from one entity to another and what RTGS do that it does the same but making it real-time and on a gross basis subjected to any waiting period, with transactions being settled as soon as they are processed without the need to bundle them with other transactions, in 1985, three central banks had implemented RTGS systems, while by the end of 2005, RTGS systems had been implemented by 90 central banks.</p>
+<p>What blockchain systems mainly enables they allow users to send transactions online without the need for an intermediary but until now we don’t have the system that can handle a very big number of transactions with decentralization compared to the traditional financial infrastructure but that’s is a not a very fair comparison because it been developed a lot and secondly for Visa is the highest layer forgetting about how much it takes to be confirmed on layer 1! </p>
+<p>FastPay can be considered as a side-chain of another cryptocurrency and it can remove the need for intermediate banks and their credit risks of net settlement and complex financial contracts between them and it can be used as a high-performance settlement layer on the side of an established RTGS to settle fiat retail payments which what we are going to focus on, so as mentioned in the paper it’s a Byzantine Fault Tolerant (BFT) real-time gross settlement (RTGS) system which makes four things possible: </p>
+<ul>
+<li>Maintaining account balances and settling pre-funded retail payments between accounts.</li>
+<li>It supports an extremely low-latency confirmation of eventual transaction finality.</li>
+<li>A very high capacity while ensuring gross settlement in real-time.</li>
+<li>Operate with a native asset, without a primary ledger.</li>
+</ul>
+<p>RTGS is high power but it fails when you want to use it as a low-value high-volume transaction for that reason it is only used for high-value transactions other than that they’re controlled by one centralized single authority!</p>
+<h3><b>Traditional payment systems vs. FastPay:</b></h3>
+
+<ul>
+<li>The first difference is that FastPay is close to realtime and there is no netting between participants, and the transfer of funds is final upon the full payment protocol terminating.</li>
+<li>The design of the system is much simpler because it’s prefunded and there is no need to keep track of the liquidity.</li>
+<li>It has a lot higher performance, throughput, it has faster finality and it achieves 80,000 tx/sec which puts Visa and Mastercard together.</li>
+<li>Fast pay doesn’t support Delivery-payment transactions or Payment-versus-Payment.</li>
+</ul>
+
+<h3><b>Cryptocurrencies vs. FastPay:</b></h3>
+<p>Fastpay is not a cryptocurrency, you can consider it as a payment channel that is managed by different authorities but there are main differences: </p>
+
+
+<ul>
+<li>FastPay is secure under full network asynchrony leading to higher performance. </li>
+<li>FastPay allows for increased concurrency.</li>
+<li>FastPay achieves auditability.</li>
+<li>FastPay has very high performance compared to permissioned blockchains and keeps performing well in heavy scenarios, for example, HyperLedger Fabric running with 10 nodes achieves about 1,000 transactions per second and a latency of about 10 seconds.</li>
+<li>FastPay works a lot better than bilateral payment channels as it has high guarantees and sufficient programmability and it allows pay anyone in the system without locking liquidity other than the fully asynchronous feature!</li>
+<li>FastPay does rely on an assumption of threshold non-Byzantine authorities.</li>
+</ul>
+<h1><b>A dive into The Basics of the Protocol Components:</b></h1>
+<p>First of all the protocol is open-source and was implemented in about 2.5 months of work for 3 engineers using Rust and using Tokio3 for networking and for signatures they used ed25519-dalek4 and ed25519 is used for batch verification, things happens on memory and UDP is used for reducing latency, the implementation of both server and client is less than 4,000 LOC and and a further 1,375 LOC of unit tests.</p>
+<h2><b>Accounts:</b></h2>
+<p>There are two types of actors in the protocol which are authorities and account owners, as the system uses smart contracts each account needs a public and private key to be able to do the signatures and the same of other blockchains the account is identified by the address and there are certain methods that each account can do and they’ve main two parts</p>
+<ol>
+<b>Writing</b>
+<li>Receiving funds from a Primary account.</li>
+<li>Transferring funds to a Primary account.</li>
+<li>Receiving funds from a FastPay account.</li>
+<li>Transferring funds to a FastPay account.</li>
+</ol>
+<ol>
+<b>Reading:</b>
+<li>Reading the state of an account</li>
+<li>Obtaining a certificate for any action executed by an authority.</li>
+</ol>
+
+<p>Other than this, there’s certain information that each account should hold for the authorities, it needs to save the authority name, signature, verification keys, the committee which is set of authorities, and their verification keys with tracking the current account state of each FastPay address and an integer value the last transaction that paid funds into the Primary and for the accounts, they need to hold the public verification key, Two integer values balance of payment and the sequence of the next spending action to be created, A list of synchronization orders with a field to track the last transfer order, confirmed certificates</p>
+
+<h2><b>Messages:</b></h2>
+<p>Basically, there are two main types of messages in the FastPay protocol, the first one is the transactions and network requests that account owners do which they’re called Orders which the user is actually responsible for broadcasting them!</p>
+<p>Now let’s try to go into the Order Scheme that you’re the account owners have to include:</p>
+<ul>
+<li>The Send Address.</li>
+<li>The recipient’s Address.</li>
+<li>Non-Negative Amount.</li>
+<li>The Sequence number.</li>
+<li>The signature of the transaction.</li>
+<li>And you can add some option data too.</li>
+</ul>
+
+<h2><b>Consensus:</b></h2>
+<p>FastPay can tolerate up to f Byzantine failures out of a total of 3 f + 1 authorities (assuming a fixed but unknown subset of at most f Byzantine authorities), and retain both safety, liveness, and high-performance and the quorum is can happen by a subset of 2 f +1 authorities and for the same rule for the Certificates to be created but for sure you have to have a valid transfer order and the cool thing that no Byzantine can make it delayed or present a signiture on a different order because it has to be signed by the correct actor and if someone tries to send two transfers for a single sequence they get their account locked. If wrong data is send it’s simply rejected and it doesn’t affect the performance but if it’s a non-founder address it creates a spot for it!</p>
+<p>Sharding is allowed for an authority and it can be sharded across many machines to allow unbounded horizontal scalability and that allows an increase in the theoretical throughput linearly but sharding is not required at all except one scenario where it needs max 2 shards which is the settlement</p>
+<h2><b>Smart Contracts:</b></h2>
+<p>A traditional RTGS would record this state and manage it in conventional ways using databases and stored procedures, rather than a blockchain and smart contracts but in Fastpay the logic that happens on the Primary as a smart contract, and the primary store of information as the blockchain. </p>
+<p>Interactions with primary requirements:</p>
+<ul>
+<li>Authority names and their verification keys.</li>
+<li>map of accounts where each FastPay address is mapped to its current Primary state.</li>
+<li>Total balance in the smart contract.</li>
+<li>Last transactio index.</li>
+</ul>
+
+<p>The main thing is to be able add funds from the Primary to FastPay and that’s called the funding transaction that happens through the smart contract to the committee and it includes the Fastpay address with the amount and the smart contract generates a Primary event to ping authorities that there is a change in the state of the smart contract, the second thing that happen is that the smart contract have to ensure that the order is unique! So if you’re wondering what happens when authorities receive the ping, here is what happens: </p>
+<ul>
+<li>checks that the transaction index follows the previously recorded one.</li>
+<li>increments the last transaction index in their global state.</li>
+<li>creates a new FastPay account if needed, and (iv) increases the account balance of the target account by the amont.</li>
+</ul>
+<p>The other scenario is transferring funds from FastPay to the Primary which evolve 7 steps:</p>
+<ul>
+<li>FastPay sender signs a Primary transfer order using their account key and broadcasts it to the authorities.</li>
+<li>You have to reach the quorum of signatures.</li>
+<li>Send an order to broadcast it.</li>
+<li>Now you have to get confirmations.</li>
+<li>Now you have to check some conditions, a quorum of signatures was reached, and that the account sequence number matches is true; they then set the pending order to None, increment the sequence number, and decrease the account balance.</li>
+<li>send a redeem transaction for the smart contract.</li>
+<li>Make the transfer.</li>
+</ul>
+<h2><b>Fast Security Overview:</b></h  2>
+<p>There are some main security properties that the protocol guarantees and they’re, Safety and that means that funds can’t be destroyed and only moved between accounts, Authenticity that basically means that only the owner of the account can make an order and that’s basically because it has to be signed! Availability, you should be always able to move funds from your account, Public Auditability and it means that their evidence for the transactions that happened, and finally authorities should not be able to delay an account order.</p>
+<p>The security properties of the protocol are maintained under a number of security assumptions: </p>
+<ul>
+<li>There are at most f Byzantine authorities out of 3 f +1 total authorities.</li>
+<li>The network is fully asynchronous, and the adversary may arbitrarily delay and reorder messages. However, messages are eventually delivered.</li>
+<li>Users may behave arbitrarily but availability only holds for correct users. The Primary provides safety and liveness.</li>
+</ul>
+<h2><b>What are the Challenges?</b></h2>
+<p>There are four main challenges that the FastPay protocol can have: </p>
+<ul>
+<li><h4>Threats to validity of experiments:</h4><p>So the data that the FastPay team had was lab data and in lab conditions and there is some stuff that was not taken into consideration like the database wasn’t the storage when the throughput was calculated!</p></li>
+<li><h4>Integrating Privacy: </h4><p>It’s obvious that the architecture of FastPay is not privacy-preserving and a lot of confidential data like senders, receivers, time is public to authorities but the project architecture can work with MinbleWinble and Coconut which can enable a lot of things! The researchers said that this is behind the scope of their current work but I think it’s a very cool challenge to work on and try to make FastPay a privacy-preserving blockchain so fork it and start playing with it :)</p></li>
+<li><h4>Checkpointing, authority, and key rotation:</h4><p>As we talked about consensus, authorities don’t have to reach a consensus on the state of the database, this is the enabler of the very high performance but it’s at the same time a very big limitation! We will not go deep into this as I am trying to keep the article simple but take this an example, if you want to do a checkpointing of the state of all accounts in the systems, to compress the list of stored certificates would be beneficial but it can’t work without a consensus!</p></li>
+<li><h4>Economics and Fees:</h4><p>One of the important parts of Bitcoin and Ethereum is the transaction fees that prevent Denial of Service attacks but here simply you can add the capacity by adding more shards! Another note the researcher recommends is to use micro-payments associated with each payment like in Bitcoin but allowing a client to deposit some payment into a service account with all authorities, and then allow them to deduct locally some of this fee for any services rendered.</p>
+</ul>
+</ol>
+</ul>
+
+<hr />
+The main source: <a href="https://arxiv.org/abs/2003.11506">FastPay: High-Performance Byzantine Fault Tolerant Settlement</a> by Mathieu Baudet, George Danezis, and Alberto Sonnino Facebook Calibra.
+<p>Feel free to contact me on <a href="https://twitter.com/ShawkiSukkar">Twitter</a> or <a href="https://www.linkedin.com/in/shawkisukkar/">LinkedIn</a> and Let me know what you think about it :)</p>
+
+</main>
+</body>
+</html>
