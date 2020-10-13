@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+      <meta name="author" content="Shawki Sukkar" />
+        <title>How Open Algorithms can Solve Identity and Data-Sharing Problems? | Shawki Sukkar</title>
+      <link rel="stylesheet" href="../styles/page.css" />
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Arvo:400,700">
+  <script>hljs.initHighlightingOnLoad();</script>
+<style>
+  
+</style>
+</head>
+<body>
+    <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../blog.html">Blog</a></li>
+                <li><a href="https://drive.google.com/file/d/1yiXQYMp1nJZuNw1ERWJNCWsqUwYyz9yV/view?usp=sharing">Resume</a></li>
+                <li><a href="../newsletter.html">Newsletter</a></li>
+                <li><a href="../resources.html">Resources</a></li>
+            </ul>
+    </nav>
+
+    <main>
+        <div>
+<h1>How Open Algorithms can Solve Identity and Data-Sharing Problems?</h1>
+<p>What if we can have all data in one place, share data in a privacy-preserving way, or even have distributed machine learning? Thanks to Prof. Alex Pentland and Dr. Thomas Hardjono that made it possible by inventing the Open-Algorithms and making it possible :) and as it’s so interesting, I thought to summarize the paper.</p>
+<p>The value that data can provide is unbelievable and it’s proving great value to a lot of domains and will have more impact in the future of digital society but until now less than 1% of the world's data is analyzed, data sharing gives great benefits and more insights if you have the data from multiple domains but the data-sharing ecosystem faces a lot of challenges, like: </p>
+<ul>
+<li>Sharing data outside the organization is so hard.</li>
+<li>Accessing personal-data is not efficient because of law and technical infrastructure.</li>
+<li>GDPR had a very big impact on global organizations that rely on the Internet for the trans-border flow of raw data. </li>
+<li>Operate with a native asset, without a primary ledger.</li>
+</ul>
+<p>The identity problem in reality a data-sharing problem for that reason if we want to understand the solution provided we have to a brief history and overview of identity management and federation but first I am going to go through the main problems in the identity and access management ecosystem: </p>
+
+<ul>
+<li>The biggest problem is that identity services are tied to specific services.</li>
+<li>Duplication is a very big problem, for ex: all services hold the same person-attributes.</li>
+<li>In most cases, users don’t have an idea of what data is collected and what algorithms companies are running on it!</li>
+<li>There is a big diminishing of trust in data holders.</li>
+<li>Some service providers only have access to only poor quality user data.</li>
+</ul>
+
+<p>So mainly the start of the need for identity providers is when a lot of people wanted to have internet services and the solution was inventing the Web-SSO which is built on the idea of having a trusted third-party that can be considered as an identity-provider and to have standardization the Liberty Alliance Project started which included over 150 companies and organizations that resulted:</p>
+
+
+<ul>
+<li>SAML2.0: basically, it is an open standard that allows an identity provider to give authorization to a service provider and uses XML for communication because the main thing is separating the identity provider from the services provider and it remains the predominant Web-SSO technology used within Enterprise.</li>
+<li>Shibboleth: Shibboleth is an open-source SSO which allows you to use the same identity for multiple service providers.</li>
+</ul>
+<p>The rise of web apps and mobile applications needed a new system or authentication, for example, there was a big need of allowing other apps to access your calendar without giving the password and being able to disable it after a time which was the reason why the OAuth2.0 protocol was invented but the design of it lacks details for practical implementation and deployment!</p>
+<p>One other important thing to discuss before going into OPAL is Identity Federation, you can think about it in this way, what if you want a service but you were not known to another identity provider, the solution will be that we decentralize the identity providence and having a network of them so when an IDP doesn’t have your data it can query it from another IDP in the federation and the federation includes, Identity Provider, attribute, Attribute Provider, Identity Federation, Relying Party or Service Provide and it uses SSO as a primary flow that makes a lot of limitations which are: </p>
+<ul>
+<li>Identity services are becoming a side function for another service.</li>
+<li>Lack of high-quality data.</li>
+<li>Limited user-control over the data.</li>
+</ul>
+
+<p>So now is the time for the core of the article which is Open-Algorithms and it’s the principles and concepts of it: </p>
+
+<ul>
+<li>Don’t move the data, move the algorithm to the data.</li>
+<li>Don’t Export the data from its repository.</li>
+<li>Analyze that the algorithms are analyzed for safety and privacy-preservation.</li>
+<li>Only provide aggregate answers.</li>
+<li>Develop a Trust Network for Data Sharing Federation.</li>
+<li>Consent for algorithm execution.</li>
+<li>Having a Decentralized Data Architectures.</li>
+</ul>
+
+<p>There are 3 steps to apply the Query-Response Model for the OPAL: </p>
+<ul>
+<li>Select one or more vetted algorithms from an entity you want to provide data.</li>
+<li>An OPAL contract that contains among others the desired Algorithm-ID is digitally signed by the Querier and sent to the target data repository.</li>
+<li>The data provider checks the identity of the Querier and executes the algorithm and the result is then placed into an “OPAL contract response”.</li>
+</ul>
+
+<p>OPAL can also help in the problems of identity federation so instead of sharing static attributes, we can start sharing vetted algorithms and what should happen is the following: </p>
+<ul>
+<li>Algorithms instead of attributes.</li>
+<li>bringing data providers from differing domains or vertical together so you can get better knowledge and new insights.</li>
+<li>Here data owners could develop new business models because they can sell the executions of the algorithms, so we should have correct pricing models.</li>
+<li>Data returns should be measurable for data providers.</li>
+<li>Log everything on the blockchain for transparency and regulatory compliance.</li>
+</ul>
+
+<p>The main thing now to ask is what the trust model of the OPAL Federation looks like because, for OPAL-based information sharing federation to be developed, it should use and expand the currently existing legal trust frameworks for identity systems and it has two main components the first one is the business and technical operational rules and the second are contract-based legal rules but in general it must address the following: </p>
+<ul>
+<li>Verifying the correct matching between an identity and the set of data in a repository.</li>
+<li>Providing the correct result from an OPAL-based computation to the party that requires it to complete a transaction.</li>
+<li>Maintaining and protecting the private data within repositories over its lifecycle.</li>
+<li>Defining the legal framework that defines the rights and responsibilities of the parties, allocates risk, and provides a basis for enforcement.</li>
+</ul>
+<p>One of the most important parts in the identity management systems is the consent management and OPAL introduces a very interesting one because here it’s different, you’re asking for safe-answers not sharing the data itself and the other party has to make sure that the data stays in the same place and the OPAL systems should at least have the following: </p>
+<ul>
+<li>Already identified algorithms.</li>
+<li>Data-sets and any copy of it should be identifiable. </li>
+<li>Data-providers and queriers should be identified.</li>
+<li>result of the execution of the algorithm should have terms.</li>
+</ul>
+<p>As the majority of apps uses OAuth2.0, it makes sense to extend it by adding User-Managed Access instead of building another one and it includes 6 main steps:</p>
+<ul>
+<li>The Consent Management system becomes the UMA Authorization Server (AS).</li>
+<li>Match the rules with the resources.</li>
+<li>The querier selects an algorithm.</li>
+<li>The querier must get a signed JSON data structure.</li>
+<li>The Querier binds the execution-request to the consent token and transmits it to the data provider.</li>
+<li>The repository returns the response to the querier.</li>
+</ul>
+
+<p>The future directions of the OPAL project are so wide but mainly it goes into three things, Distributed Machine Learning, fairness and accountability in machine learning, and algorithms expressed as smart contracts.</p>
+
+<p>Finally, three projects are using OPAL that is cool to go through: </p>
+<ul>
+OPEN TrialChain (Clinical Trials): <p ></p> <li>TrailChain is a blockchain-based platform to validate data integrity in large, biomedical research studies that improve the visibility of data quality and analysis.</li>
+SMART^2 OPAL (Urgent Care):  <p ></p> <li>SMART^2 OPAL helps decision-makers optimize the urgent care system understanding the dynamics of time between symptom to arrival to the emergency department using timestamps.</li>
+RoboChain (Clinical Intervention):  <p ></p><li>A learning framework for secure, decentralized, computationally efficient data and model sharing among multiple robot units installed at multiple sites, and it allows access to our private data to learn from these data and improve their interaction capabilities.</li>
+</ul>
+<hr />
+The main source: <a href="https://arxiv.org/pdf/1705.10880.pdf">Open Algorithms for Identity Federation</a> by Alex Pentland and Thomas Hardjono.
+<p>Feel free to contact me on <a href="https://twitter.com/ShawkiSukkar">Twitter</a> or <a href="https://www.linkedin.com/in/shawkisukkar/">LinkedIn</a> and Let me know what you think about it :)</p>
+
+</main>
+</body>
+</html>
