@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+      <meta name="author" content="Shawki Sukkar" />
+        <title>How Facebook Novi is planning to Achieve 80,000 Transactions per Second with Multiple Authorities? | Shawki Sukkar</title>
+      <link rel="stylesheet" href="../styles/page.css" />
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Arvo:400,700">
+  <script>hljs.initHighlightingOnLoad();</script>
+
+<style>
+  code {display: block;}
+</style>
+</head>
+<body>
+    <nav>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../blog.html">Blog</a></li>
+                <li><a href="https://drive.google.com/file/d/16h19g4Qurdr6StarMtdgb9O_hHzRqebe/view?usp=sharing">Resume</a></li>
+                <li><a href="../newsletter.html">Newsletter</a></li>
+                <li><a href="../resources.html">Resources</a></li>
+            </ul>
+    </nav>
+
+    <main>
+        <div>
+<h1>What’s Different about Move Language?</h1>
+<h2><b>Introduction:</b></h2>
+<p>I was reading the Move language paper that the Libra team built and I found it so interesting, It’s safe, flexible and a lot of safety guarantees as it’s built on the Rust programming language so I thought to write about it! This article is a deep introduction and not a very high-level article and a cool thing at the end we’re going to build a token using Move :)</p>
+<p>The beginning is an intro to smart contract languages in general and the problems you face using them to have a better understanding of Move!</p>
+<p>The main idea of smart contracts was written about in 1996 by Nick Szabo and you can find more about it here basically smart contracts in peer-to-peer networks it’s programs that are executed inside a where nobody has special authority over the execution! There are three main problems in either Bitcoin Script or EVM bytecode languages: </p>
+<ul>
+<li>Indirect representation of assets:</li>
+<p>Asset ≠ an integer value, we encode integers to represent assets but they’re not the same.</p>
+<li>Scarcity is not extensible: </li>
+<p>Asset ≠ an integer value, we encode integers to represent assets but they’re not the same.</p>
+<li>A very high capacity while ensuring gross settlement in real-time.</li>
+<p>The language only represents one scarce asset so if you want to reimplement scarcity there’s no support from the language.</p>
+<li>Access control is not flexible:</li>
+<p>It’s so hard to build another access control that’s specific to certain programs because the main ones are embedded in the language semantics.</p>
+</ul>
+<p>I’ll start with Bitcoin Script at the beginning and the reason why Satoshi had a Bitcoin Script is not to be forded to create a specific transaction type for each case and basically, it’s something that takes an input and returns an output (ex: a transaction is valid or not)  so you can consider it as a program that’s written in a not Turing-complete stack-based language that does an access control to the coins it holds! As we mentioned Bitcoin is not Turing-complete and that’s the reason why Ethereum was made is to make more complex transactions and it enables developers to publish bytecode programmers but that brought a lot of security issues which lead to a lot of bugs.</p>
+
+
+<h2><b>Move Design Goals:</b></h2>
+<p>If you’re wondering why it called Move it because its job is to move the Libra currency and it was designed to achieve 4 main goals that I am going to explain below: </p>
+<h3><b>First-Class Resources:</b></h3>
+<p>This one of the most exciting features of Move which is based on linear logic which is an expressive logical system where logical facts can be consumed, that means you can’t copy, you only move, and that not only important to create a safe digital asset that’s important for business logic that wraps asset to enforce the access control of it! Ethereum has smart contracts and Move have something called modules that protect critical operations and only allow them inside the module.</p>
+<p>Also, you can read about The Libra Reserve in the article I wrote here!</p>
+<h3><b>Flexibility:</b></h3>
+<p>Flexibility is an important design goal in Move and it archives them by transaction scripts which are a Move code single procedure that allows you to make customizable transactions that allow a very important thing such as expressive one-off behaviors.</p>
+<h3><b>Safety:</b></h3>
+<p>Safety which the biggest Move language design goal and the biggest Solidity problem they do that basically by rejecting programs that don’t satisfy a specif security criteria by the bytecode verifier that happens on-chain and there are two ways to do this:</p>
+<ul>
+<li>Use a high-level programming language with a compiler that checks these properties.</li>
+<li>Use low-level untyped assembly and perform these safety checks at runtime.</li>
+</ul>
+<p>Now as the bytecode verifier is so interesting I’ll go more deeply into it, so the Bytecode Verifier is some a static analysis tool that checks the safety of the code you wrote, as the function is a sequence of bytecode instructions it’s checked in several phases, explained below: </p>
+<h3><b>CFG Construction:</b></h3>
+<p>In Computer Science doing a Control-flow graph is checking all paths that might be traversed through a program during its execution and in this case, the graph is constructed by decomposing the instruction sequence into a collection of basic blocks.</p>
+<h3><b>Verifiability:</b></h3>
+<p>As I mentioned the bytecode verifier happens on the chain and that brings a lot of cost for the protocol for that the Libra team worked on making Move supports advanced off-chain static verification tools by the following design decisions that make checking so scalable and efficient: </p>
+<ul>
+<li>No dynamic dispatch: If you have something static so you can predict it easily without running the complex computation./li>
+<li>Limited mutability: Move uses the Borrow Checking technique that Rust has so it makes sure that at most one mutable reference to a value exists and another thing that Move makes sure that references are destroyed in the same function.</li>
+<li>Modularity: We mentioned this point before that Move uses modules that are important here because they enforce data abstraction and localize critical operations.</li>
+</ul>
+<h2><b>Simple Peer-to-Peer Payment Example:</b></h2>
+<p>Now we’ll try to write a simple p2p transaction script so we can understand the language features more using Move IR!</p>
+<code>public main(payee: address, amount: u64) {</code>
+<code>let coin: 0x0.Currency.Coin = 0x0.Currency.withdraw_from_sender(copy(amount));</code>
+
+<code>0x0.Currency.deposit(copy(payee), move(coin));</code>
+<code>}</code>
+<p>This script takes two inputs, the payee which is the recipient, and the amount which is an unsigned integer! Obviously, we are taking the amount to send it to the address we have and that takes two steps:</p>
+<ul>
+<li> We are going to call the withdraw_from_sender from the 0x0.Currency module to return to coin value.</li>
+<li>Now we have to move the coin resource into 0x0.Currency for the deposit!</li>
+</ul>
+
+<p>A very interesting feature in Move that if the same code was leading to a bad behavior it’s going to be rejected! For example, if you changed move(coin) to copy(coin) or tried to use the coin twice by using move(coin) twice, or if you failed to move a resource as move implements linear.</p>
+
+<h3><b>Currency Module:</b></h3>
+<p>The difference between a transaction script and a module is that the transaction script is all or nothing it cannot be invoked again by other codes but a module is a long-lived piece of code and each account on the network can contain one or more modules! I’ll try now to go inside the currency model:</p> 
+<code>module Currency {</code>
+<code>resource Coin { value: u64 }</code>
+<code>// ...</code>
+<code>}</code>
+
+
+<hr />
+The main source: <a href="https://arxiv.org/abs/2003.11506">FastPay: High-Performance Byzantine Fault Tolerant Settlement</a> by Mathieu Baudet, George Danezis, and Alberto Sonnino Facebook Calibra.
+<p>Feel free to contact me on <a href="https://twitter.com/ShawkiSukkar">Twitter</a> or <a href="https://www.linkedin.com/in/shawkisukkar/">LinkedIn</a> and Let me know what you think about it :)</p>
+
+</main>
+</body>
+</html>
