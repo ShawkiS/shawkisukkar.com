@@ -36,9 +36,8 @@ ul {
 }
 
 li {
-    list-style-type: none;
     line-height: 1.2rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.7rem;
 }
 
 div#work-section ul {
