@@ -36,12 +36,9 @@ ul {
 }
 
 li {
+    list-style-type: none;
     line-height: 1.2rem;
     margin-bottom: 0.7rem;
-}
-
-#begli {
-    list-style-type: none;
 }
 
 div#work-section ul {
