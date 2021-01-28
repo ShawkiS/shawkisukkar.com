@@ -40,6 +40,10 @@ li {
     margin-bottom: 0.7rem;
 }
 
+#begli {
+    list-style-type: none;
+}
+
 div#work-section ul {
     padding-left: 1.5rem;
     margin-top: 0;
